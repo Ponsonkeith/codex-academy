@@ -1,0 +1,162 @@
+/* app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: #0a0c1a; }
+::-webkit-scrollbar-thumb { background: #f5a623; border-radius: 2px; }
+
+/* ── Base resets ───────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+::selection { background: #f5a62340; color: #f5a623; }
+
+/* ── Utility classes ───────────────────────────────────── */
+@layer components {
+
+  /* Codex card */
+  .cx-card {
+    @apply bg-codex-surface border border-codex-border rounded-2xl;
+  }
+
+  .cx-card-up {
+    @apply bg-codex-surfaceUp border border-codex-border rounded-2xl;
+  }
+
+  /* Glow border on hover */
+  .cx-hover-gold {
+    @apply transition-all duration-200 hover:border-codex-gold/50 hover:shadow-[0_0_16px_#f5a62318];
+  }
+
+  /* XP badge */
+  .cx-xp-badge {
+    @apply text-[10px] font-bold text-codex-gold bg-codex-gold/10
+           border border-codex-gold/30 rounded-md px-2 py-0.5
+           font-display tracking-wider;
+  }
+
+  /* Level badge */
+  .cx-level-badge {
+    @apply cx-xp-badge whitespace-nowrap;
+  }
+
+  /* Plan badge */
+  .cx-plan-badge {
+    @apply text-[10px] font-bold uppercase tracking-wider rounded-md px-2 py-0.5;
+  }
+  .cx-plan-explorer { @apply bg-codex-muted/10 text-codex-muted border border-codex-muted/30; }
+  .cx-plan-learner  { @apply bg-codex-accent/10 text-purple-400 border border-codex-accent/30; }
+  .cx-plan-elite    { @apply bg-codex-gold/10   text-codex-gold border border-codex-gold/30;   }
+
+  /* Rarity badge */
+  .cx-rarity-common    { @apply bg-codex-muted/10  text-codex-muted  border-codex-muted/30;  }
+  .cx-rarity-rare      { @apply bg-blue-500/10     text-blue-400     border-blue-500/30;      }
+  .cx-rarity-epic      { @apply bg-codex-accent/10 text-purple-400   border-codex-accent/30;  }
+  .cx-rarity-legendary { @apply bg-codex-gold/10   text-codex-gold   border-codex-gold/30;    }
+
+  /* Buttons */
+  .cx-btn-primary {
+    @apply w-full py-3 px-6 rounded-xl font-bold text-sm text-black
+           bg-codex-gold hover:bg-codex-goldDim
+           transition-all duration-200 active:scale-[0.98]
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .cx-btn-ghost {
+    @apply w-full py-3 px-6 rounded-xl font-medium text-sm text-codex-muted
+           bg-transparent border border-codex-border
+           hover:border-codex-gold/40 hover:text-codex-text
+           transition-all duration-200;
+  }
+
+  /* Input */
+  .cx-input {
+    @apply w-full bg-codex-surfaceUp border border-codex-border rounded-xl
+           px-4 py-3 text-codex-text text-sm placeholder:text-codex-muted/50
+           focus:outline-none focus:border-codex-gold/50 focus:ring-1 focus:ring-codex-gold/20
+           transition-all duration-200;
+  }
+
+  /* Section heading */
+  .cx-section-title {
+    @apply font-display text-sm font-bold tracking-widest text-codex-text uppercase;
+  }
+
+  /* Progress bar */
+  .cx-progress-bar {
+    @apply h-1.5 bg-codex-border rounded-full overflow-hidden;
+  }
+
+  .cx-progress-fill {
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+  }
+
+  /* Stat card */
+  .cx-stat {
+    @apply cx-card-up p-4 flex-1 min-w-[90px];
+  }
+
+  /* Sidebar icon button */
+  .cx-nav-btn {
+    @apply w-12 h-12 rounded-xl border-none cursor-pointer
+           flex flex-col items-center justify-center gap-0.5
+           transition-all duration-200;
+  }
+  .cx-nav-btn-active { @apply bg-codex-gold/10 text-codex-gold; }
+  .cx-nav-btn-idle   { @apply bg-transparent text-codex-muted hover:text-codex-text; }
+
+  /* Floating XP popup */
+  .cx-xp-popup {
+    @apply fixed top-20 right-8 z-50
+           bg-codex-gold text-black font-display font-bold
+           px-4 py-2 rounded-xl text-sm
+           animate-[slideUp_0.3s_ease_forwards,fadeOut_0.3s_ease_0.8s_forwards]
+           pointer-events-none;
+  }
+}
+
+/* ── Animations ─────────────────────────────────────────── */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes progressGrow {
+  from { width: 0%; }
+  to   { width: var(--target-width); }
+}
+
+/* ── Code blocks ─────────────────────────────────────────── */
+pre, code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+}
+
+pre {
+  @apply bg-codex-surfaceUp border border-codex-border rounded-xl p-4 overflow-x-auto my-4;
+}
+
+code:not(pre code) {
+  @apply bg-codex-surfaceUp border border-codex-border rounded px-1.5 py-0.5 text-codex-gold text-xs;
+}
+
+/* ── Markdown content ────────────────────────────────────── */
+.lesson-content h1 { @apply text-2xl font-display font-bold text-codex-text mb-4 mt-8; }
+.lesson-content h2 { @apply text-xl font-display font-bold text-codex-text mb-3 mt-6; }
+.lesson-content h3 { @apply text-lg font-semibold text-codex-text mb-2 mt-4; }
+.lesson-content p  { @apply text-codex-muted leading-7 mb-4; }
+.lesson-content ul { @apply list-none space-y-2 mb-4; }
+.lesson-content ul li::before { content: '▸ '; color: #f5a623; }
+.lesson-content ul li { @apply text-codex-muted leading-7; }
+.lesson-content strong { @apply text-codex-text font-semibold; }
+.lesson-content a  { @apply text-codex-gold hover:underline; }
+.lesson-content blockquote {
+  @apply border-l-2 border-codex-gold/50 pl-4 py-1 my-4
+         bg-codex-gold/5 rounded-r-xl italic text-codex-muted;
+}
